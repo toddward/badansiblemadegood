@@ -37,7 +37,8 @@
       state: latest
   - name: install HAProxy
     yum:
-      name=haproxy state=latest
+      name: haproxy 
+      state: latest
   - name: enable HAProxy
     service:
       name: haproxy
@@ -46,11 +47,13 @@
     template:
       src: ./haproxy.cfg.j2
       dest: /etc/haproxy/haproxy.cfg
-  - name: restart HAproxy
-    service:
-      name: haproxy
-      state: restarted
-
+    notify:
+      - restart_haproxy
+  handlers:
+    - name: restart_haproxy
+      service: 
+        name: haproxy
+        state: started
 
 - name: deploy tomcat
   hosts: apps
@@ -77,11 +80,19 @@
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ROOT/index.html
       mode: 0644
+    notify:
+      - restart_tomcat
+  
+  # - name: start tomcat
+  #   service:
+  #     name: tomcat
+  #     state: started
 
-  - name: start tomcat
-    service:
-      name: tomcat
-      state: started
+    handlers:
+    - name: restart_tomcat
+      service: 
+        name: tomcat
+        state: started
 
 - name: index.html on app 1
   hosts: app1
