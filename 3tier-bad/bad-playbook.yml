@@ -31,14 +31,14 @@
   become: true
 
   tasks:
-  - name: http
-    package:
-      name: httpie
-      state: latest
-  - name: install HAProxy
+  - name: Install Required Packages
     yum:
-      name: haproxy 
+      name: {{item}}
       state: latest
+    with_items:
+      - httpie
+      - haproxy
+      ######### HERERERERER ##########
   - name: enable HAProxy
     service:
       name: haproxy
