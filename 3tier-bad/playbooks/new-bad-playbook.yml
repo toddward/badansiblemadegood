@@ -4,7 +4,6 @@
 
 - name: Modify servers to pull from correct repos
   hosts: all
-  gather_facts: false # remove later! speeds up testing
 
   tasks:
   - name: Enable Open-Three-Tier Repo
@@ -15,12 +14,14 @@
 
 - name: "Configure High Availablity Proxy Server"
   hosts: frontends
-  gather_facts: false
   roles:
     - {role: ../roles/haproxy_setup}
 
 - name: "Deploy Tomcat to Servers"
   hosts: apps
-  gather_facts: true
   roles:
     - {role: ../roles/tomcat_setup}
+
+- name: "Deploy Postgres to Servers"
+  hosts: apps
+  gather_facts: false
