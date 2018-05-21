@@ -25,33 +25,33 @@
       dest: /etc/yum.repos.d/open_three-tier-app.repo
       mode: 0644
 
-- name: Configure High Availability Proxy
-  hosts: frontends
-  gather_facts: false # remove later! speeds up testing
-  become: true
-  tasks:
-  - name: Install Required Packages
-    yum:
-      name: {{item}}
-      state: latest
-    with_items:
-      - httpie
-      - haproxy
-  - name: Enable HAProxy Start At Boot
-    service:
-      name: haproxy
-      enabled: yes
-  - name: Adjust HAProxy Configuration
-    template:
-      src: ./haproxy.cfg.j2
-      dest: /etc/haproxy/haproxy.cfg
-    notify:
-      - restart_haproxy
-  handlers:
-    - name: restart_haproxy
-      service: 
-        name: haproxy
-        state: started
+# - name: Configure High Availability Proxy
+#   hosts: frontends
+#   gather_facts: false # remove later! speeds up testing
+#   become: true
+#   tasks:
+#   - name: Install Required Packages
+#     yum:
+#       name: {{item}}
+#       state: latest
+#     with_items:
+#       - httpie
+#       - haproxy
+#   - name: Enable HAProxy Start At Boot
+#     service:
+#       name: haproxy
+#       enabled: yes
+#   - name: Adjust HAProxy Configuration
+#     template:
+#       src: ./haproxy.cfg.j2
+#       dest: /etc/haproxy/haproxy.cfg
+#     notify:
+#       - restart_haproxy
+#   handlers:
+#     - name: restart_haproxy
+#       service: 
+#         name: haproxy
+#         state: started
 
 - name: Deploy Tomcat to Apps Servers
   hosts: apps

@@ -1,0 +1,6 @@
+---
+- name: restart_haproxy
+  msg: "Restarting haproxy service."
+  service: 
+    name: haproxy
+    state: restarted

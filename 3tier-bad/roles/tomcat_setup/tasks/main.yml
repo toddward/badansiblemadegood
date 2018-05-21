@@ -1,0 +1,30 @@
+---
+
+- name: Ensure Latest Tomcat is up and running
+  package:
+    name: tomcat
+    state: latest
+
+- name: Enable Tomcat at Boot
+  service:
+    name: tomcat
+    enabled: yes
+
+- name: Create Ansible Tomcat Directory
+  file:
+    path: /usr/share/tomcat/webapps/ROOT
+    state: directory
+
+- name: copy static index.html to tomcat webapps/ansible/index.html
+  template:
+    src: index.html.j2
+    dest: /usr/share/tomcat/webapps/ROOT/index.html
+    mode: 0644
+  notify:
+    - restart_tomcat
+  
+  handlers:
+  - name: restart_tomcat
+    service: 
+      name: tomcat
+      state: started
