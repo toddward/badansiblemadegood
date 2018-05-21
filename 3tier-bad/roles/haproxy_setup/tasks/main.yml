@@ -1,0 +1,23 @@
+---
+- name: Install Required Packages
+  yum:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - httpie
+    - haproxy
+
+- name: Enable HAProxy Start At Boot
+  service:
+    name: haproxy
+    enabled: yes
+
+- name: Adjust HAProxy Configuration
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Restart HAProxy
+  service: 
+    name: haproxy
+    state: restarted

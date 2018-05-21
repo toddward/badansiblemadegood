@@ -1,0 +1,9 @@
+---
+
+# Unified Role Based Playbook To Make Things Easier
+
+- name: "Configure High Availablity Proxy Server"
+  hosts: frontends
+  gather_facts: false
+  roles:
+    - {role: ../roles/haproxy_setup}

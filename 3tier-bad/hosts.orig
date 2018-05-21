@@ -7,20 +7,20 @@ GUID=c16d
 ###########################################################################
 timeout=60
 ansible_become=yes
-ansible_ssh_user=vagrant
+ansible_ssh_user=ec2-user
 
 [frontends]
 ## These are the frontends
-frontend1 ansible_host=192.168.33.11
+frontend1 ansible_host=frontend1."{{ GUID }}".internal
 
 [apps]
 ## These are the apps
-app1 ansible_host=192.168.33.12
-app2 ansible_host=192.168.33.13
+app1 ansible_host=app1."{{ GUID }}".internal
+app2 ansible_host=app2."{{ GUID }}".internal
 
 [appdbs]
 ## These are the appdbi(s)
-appdb1 ansible_host=192.168.33.14
+appdb1 ansible_host=appdb1."{{ GUID }}".internal
 
 [internal:children]
 frontends
