@@ -1,0 +1,13 @@
+---
+
+- name: Ensure Latest Tomcat Is Installed
+  package:
+    name: httpd
+    state: latest
+
+- name: Enable Apache at Boot
+  service:
+    name: httpd
+    enabled: yes
+  notify: 
+    - restart_apache

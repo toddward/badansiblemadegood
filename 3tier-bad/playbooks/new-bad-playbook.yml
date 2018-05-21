@@ -26,3 +26,8 @@
   hosts: appdbs
   roles:
     - { role: ../roles/postgres_setup }
+
+- name: "Deploy Apache to Servers"
+  hosts: apps
+  roles:
+    - { role: ../roles/apache_setup }
