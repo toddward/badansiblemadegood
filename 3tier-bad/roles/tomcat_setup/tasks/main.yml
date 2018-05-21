@@ -22,9 +22,3 @@
     mode: 0644
   notify:
     - restart_tomcat
-  
-  handlers:
-  - name: restart_tomcat
-    service: 
-      name: tomcat
-      state: started

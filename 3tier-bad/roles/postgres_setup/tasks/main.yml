@@ -1,0 +1,24 @@
+---
+- name: Install Required Packages
+  yum:
+    name: postgresql-server
+    state: latest
+
+- name: Enable HAProxy Start At Boot
+  service:
+    name: postgresql
+    enabled: yes
+
+- name: Notify User to Finish Setting Up Postgres
+  debug:
+    msg: "Either uncomment the postgres setup or manually login and initialize"
+
+- name: "Initialize Postgres"
+  command: /usr/bin/postgresql-setup initdb
+  register: command_result
+  notify:
+    - restart_postgres
+
+- debug: msg="{{ command_result.stdout }}"
+
+- debug: msg="{{ command_result.stderr }}"
