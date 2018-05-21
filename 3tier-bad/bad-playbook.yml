@@ -13,23 +13,22 @@
 #   Bare variables
 #   No use of handlers
 
-- name: configuration
+- name: Modify servers to pull from correct repos
   hosts: all
   gather_facts: false # remove later! speeds up testing
   become: true
 
   tasks:
-  - name: enable repos
+  - name: Enable Open Three Tier Repo
     template:
       src: ./open_three-tier-app.repo
       dest: /etc/yum.repos.d/open_three-tier-app.repo
       mode: 0644
 
-- name: deploy haproxy
+- name: Configure High Availability Proxy
   hosts: frontends
   gather_facts: false # remove later! speeds up testing
   become: true
-
   tasks:
   - name: Install Required Packages
     yum:
@@ -38,11 +37,11 @@
     with_items:
       - httpie
       - haproxy
-      ######### HERERERERER ##########
-  - name: enable HAProxy
+  - name: Enable HAProxy and Start at Boot
     service:
       name: haproxy
       state: started
+      enabled: yes
   - name: configure haproxy
     template:
       src: ./haproxy.cfg.j2
@@ -59,7 +58,6 @@
   hosts: apps
   gather_facts: false
   become: true
-
   tasks:
   - name: install tomcat
     package:
@@ -82,12 +80,6 @@
       mode: 0644
     notify:
       - restart_tomcat
-  
-  # - name: start tomcat
-  #   service:
-  #     name: tomcat
-  #     state: started
-
     handlers:
     - name: restart_tomcat
       service: 
