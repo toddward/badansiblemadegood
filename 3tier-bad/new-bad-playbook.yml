@@ -15,19 +15,19 @@
 - name: "Configure High Availablity Proxy Server"
   hosts: frontends
   roles:
-    - { role: ../roles/haproxy_setup }
+    - { role: haproxy_setup }
 
 - name: "Deploy Tomcat to Servers"
   hosts: apps
   roles:
-    - { role: ../roles/tomcat_setup }
+    - { role: tomcat_setup }
 
 - name: "Deploy Postgres to Servers"
   hosts: appdbs
   roles:
-    - { role: ../roles/postgres_setup }
+    - { role: postgres_setup }
 
 - name: "Deploy Apache to Servers"
   hosts: apps
   roles:
-    - { role: ../roles/apache_setup }
+    - { role: apache_setup }
