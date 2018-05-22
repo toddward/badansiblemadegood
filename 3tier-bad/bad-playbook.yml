@@ -13,17 +13,17 @@
 #   Bare variables
 #   No use of handlers
 
-- name: Modify servers to pull from correct repos
-  hosts: all
-  gather_facts: false # remove later! speeds up testing
-  become: true
+# - name: Modify servers to pull from correct repos
+#   hosts: all
+#   gather_facts: false # remove later! speeds up testing
+#   become: true
 
-  tasks:
-  - name: Enable Open Three Tier Repo
-    template:
-      src: ./open_three-tier-app.repo
-      dest: /etc/yum.repos.d/open_three-tier-app.repo
-      mode: 0644
+#   tasks:
+#   - name: Enable Open Three Tier Repo
+#     template:
+#       src: ./open_three-tier-app.repo
+#       dest: /etc/yum.repos.d/open_three-tier-app.repo
+#       mode: 0644
 
 # - name: Configure High Availability Proxy
 #   hosts: frontends
@@ -84,27 +84,27 @@
 #         name: tomcat
 #         state: started
 
-- name: index.html on app 1
-  hosts: app1
-  gather_facts: false
-  become: true
+# - name: index.html on app 1
+#   hosts: app1
+#   gather_facts: false
+#   become: true
 
-  tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app1
-      dest: /usr/share/tomcat/webapps/ansible/index.html
+#   tasks:
+#   - name: copy static index.html to tomcat webapps/ansible/index.html
+#     template:
+#       src: index.html.app1
+#       dest: /usr/share/tomcat/webapps/ansible/index.html
 
-- name: index.html on app 1
-  hosts: app2
-  gather_facts: false
-  become: true
+# - name: index.html on app 1
+#   hosts: app2
+#   gather_facts: false
+#   become: true
 
-  tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app2
-      dest: /usr/share/tomcat/webapps/ansible/index.html
+#   tasks:
+#   - name: copy static index.html to tomcat webapps/ansible/index.html
+#     template:
+#       src: index.html.app2
+#       dest: /usr/share/tomcat/webapps/ansible/index.html
 
 # - name: deploy postgres
 #   hosts: apps

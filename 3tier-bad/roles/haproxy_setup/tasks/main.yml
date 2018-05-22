@@ -1,11 +1,13 @@
 ---
 - name: Install Required Packages
-  yum:
+  package:
     name: "{{item}}"
     state: latest
   with_items:
-    - httpie
+    # - httpie
     - haproxy
+    - wget
+    - curl
 
 - name: Enable HAProxy Start At Boot
   service:

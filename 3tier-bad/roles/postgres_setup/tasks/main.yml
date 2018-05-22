@@ -1,6 +1,6 @@
 ---
 - name: Install Required Packages
-  yum:
+  package:
     name: postgresql-server
     state: latest
 
@@ -15,6 +15,7 @@
 
 - name: "Initialize Postgres"
   command: /usr/bin/postgresql-setup initdb
+  run_once: true
   register: command_result
   notify:
     - restart_postgres

@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure Latest Tomcat Is Installed
+- name: Ensure Latest Apache Is Installed
   package:
     name: httpd
     state: latest
@@ -10,4 +10,4 @@
     name: httpd
     enabled: yes
   notify: 
-    - restart_apache
+    - restart_httpd
